@@ -1,9 +1,6 @@
 .git/
 .idea/
-*.iml
-*.ipr
-*.iws
-*.class
+build/
 
 # README 파일
 README.md
