@@ -16,9 +16,6 @@ WORKDIR /app
 COPY --from=dependencies /app /app
 COPY src /app/src
 
-RUN ls -al
-RUN ls -al ./.gradle
-
 RUN ./gradlew build
 
 # 최종 실행 이미지 생성
