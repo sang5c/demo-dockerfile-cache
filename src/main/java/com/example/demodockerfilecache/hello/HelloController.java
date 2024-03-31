@@ -17,6 +17,13 @@ public class HelloController {
     @GetMapping("/hello")
     public List<Hello> hello() {
         log.info("hello");
+        log.info("hello2");
+        log.info("hello3");
+        log.info("hello4");
+        log.info("hello5");
+        log.info("hello6");
+        log.info("hello7");
+        log.info("hello8");
         return helloRepository.findAll();
     }
 

@@ -3,10 +3,12 @@ FROM gradle:8.6-jdk21 AS dependencies
 
 WORKDIR /app
 
+ENV GRADLE_USER_HOME /cache
+
 COPY build.gradle settings.gradle gradlew /app/
 COPY gradle /app/gradle
 
-RUN ./gradlew dependencies
+RUN gradle --no-daemon dependencies
 
 # 실제 애플리케이션을 빌드하기 위한 단계
 FROM gradle:8.6-jdk21 AS builder
@@ -14,9 +16,10 @@ FROM gradle:8.6-jdk21 AS builder
 WORKDIR /app
 
 COPY --from=dependencies /app /app
+COPY --from=dependencies /cache /home/gradle/.gradle
 COPY src /app/src
 
-RUN ./gradlew build
+RUN gradle --info --build-cache --no-daemon build
 
 # 최종 실행 이미지 생성
 FROM eclipse-temurin:21-jre-alpine
